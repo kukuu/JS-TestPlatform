@@ -1,0 +1,8 @@
+Lets take a look at a simple FizzBuzz example to so you what this looks like.
+
+What is FizzBuzz?
+
+FizzBuzz is a common coding exercise in job interviews.
+If a number is divisible by 3 return "Fizz".
+If a number is divisible by 5 return "Buzz".
+If a number is divisible by 3 and 5 return "FizzBuzz".
