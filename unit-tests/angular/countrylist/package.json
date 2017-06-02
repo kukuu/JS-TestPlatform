@@ -1,0 +1,29 @@
+{
+  "name": "AngularJS-unit-testing",
+  "description": "AngularJS unit testing",
+  "version": "1.0.0",
+  "devDependencies": {
+    "eslint-grunt": "latest",
+    "grunt": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-csslint": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-less": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-html2js": "^0.2.7",
+    "grunt-karma": "latest",
+    "grunt-lesslint": "latest",
+    "grunt-plato": "^1.0.0",
+    "jasmine-core": "^2.4.1",
+    "karma": "latest",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-coverage": "latest",
+    "karma-html-reporter": "^0.2.3",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "latest",
+    "karma-sauce-launcher": "latest",
+    "karma-script-launcher": "latest",
+    "karma-story-reporter": "latest",
+    "underscore": "latest"
+  }
+}

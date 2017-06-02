@@ -1,0 +1,36 @@
+{
+  "rules": {
+    "no-alert": 1,
+    "no-caller": 1,
+    "no-bitwise": 1,
+    "no-console": 1,
+    "no-debugger": 1,
+    "no-empty": 1,
+    "no-eval": 1,
+    "no-floating-decimal": 1,
+    "no-with": 1,
+    "no-unreachable": 1,
+    "no-undef": 0,
+    "no-undef-init": 1,
+    "no-octal": 1,
+    "no-new-wrappers": 1,
+    "no-new": 1,
+    "no-underscore-dangle": 0,
+
+    "strict": 0,
+    "smarter-eqeqeq": 0,
+    "brace-style": 1,
+    "camelcase": 0,
+    "curly": 1,
+    "eqeqeq": 1,
+    "new-parens": 1,
+    "guard-for-in": 1,
+    "new-cap": 1,
+    "quotes": [2, "single", "avoid-escape"],
+    "quote-props": 0,
+    "semi": 1,
+    "use-isnan": 1,
+    "no-array-constructor": 1,
+    "no-new-object": 1
+  }
+}
