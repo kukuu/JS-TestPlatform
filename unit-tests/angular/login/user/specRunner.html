@@ -1,0 +1,79 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link href="http://safjanowski.github.io/jasmine-jsfiddle-pack/pack/jasmine.css" rel="stylesheet" />
+<script src="http://safjanowski.github.io/jasmine-jsfiddle-pack/pack/jasmine-2.0.3-concated.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-resource.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-mocks.js"></script>
+    <script type="text/javascript">
+    //change flightlottery.userApi to  contentPipelineProposal.userApi
+        angular.module('flightlottery.userApi', ['ngResource']).
+factory('User', function($resource, $rootScope) {
+
+  var User = $resource('http://somesite.ca/api/users/:method/:id', {}, {
+    login: {
+      method: 'POST',
+      params: {
+        method: 'login'
+      }
+    }
+  });
+
+  User.loginUser = function(cb) {
+    return User.login(cb);
+  }
+
+  return User;
+});
+
+
+describe("User Service Test", function() {
+
+  var $httpBackend, User;
+
+  beforeEach(module('flightlottery.userApi'));
+
+  beforeEach(inject(function(_$httpBackend_, _User_) {
+    $httpBackend = _$httpBackend_;
+    User = _User_;
+  }));
+  
+  afterEach(function() {
+     $httpBackend.verifyNoOutstandingExpectation();
+     $httpBackend.verifyNoOutstandingRequest();
+   });
+
+  it('calls `POST` method to interacts with backend', function() {
+    var stubUser = {
+      name: 'Some name',
+      password: 'somePassword'
+    };
+    var stubResponse = {
+      login: 'someName',
+      lastLogin: Date.now()
+    }
+    
+    spyOn(User, 'login').and.callThrough();
+    
+    User.loginUser(stubUser).$promise.then(function(response) { // response is stubbed by second argument of repond method
+      expect(response.login).toBe(stubResponse.login)
+      expect(response.lastLogin).toBe(stubResponse.lastLogin)
+    });
+    
+    expect(User.login).toHaveBeenCalledWith(stubUser)
+    $httpBackend.expectPOST('http://somesite.ca/api/users/login').respond(200, stubResponse)
+    $httpBackend.flush();
+  });
+});
+    </script>
+</body>
+</html>
