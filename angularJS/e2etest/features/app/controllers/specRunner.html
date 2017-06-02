@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <meta name="robots" content="noindex, nofollow">
+      <meta name="googlebot" content="noindex, nofollow">
+          <script type="text/javascript" src="http://jasmine.github.io/1.3/lib/jasmine.js"></script>
+          <script type="text/javascript" src="http://jasmine.github.io/1.3/lib/jasmine-html.js"></script>
+          <link rel="stylesheet" type="text/css" href="http://jasmine.github.io/1.3/lib/jasmine.css">
+          <script type="text/javascript" src="http://code.angularjs.org/1.2.9/angular.js"></script>
+          <script type="text/javascript" src="http://code.angularjs.org/1.2.9/angular-mocks.js"></script>
+          <title>Testing Content Display App controllers with Jasmine </title>
+    </head>
+
+    <body>
+        <script type='text/javascript'>//<![CDATA[
+
+        //--- CODE --------------------------
+        (function (angular) {
+            // Create module
+            var myApp = angular.module('myApp', []);
+
+            // Controller which counts changes to its "name" member
+            myApp.controller('MainController', ['$scope', function ($scope) {
+                $scope.name = 'Now On';
+                $scope.counter = 0;
+                $scope.$watch('category', function (next, previous) {
+                    $scope.counter = $scope.counter + 1;
+                });
+            }]);
+
+            // Controller with dependencies on Angular's $http service and promises
+            myApp.controller('CtrlHttp', function ($http, $scope, $q) {
+                // Returns a promise which is resolved if http calls succeeds,
+                // otherwise the promise is rejected
+                $scope.getHttp = function () {
+
+                    var defer = $q.defer();
+
+                    // Perform the actual HTTP call with query parameters
+                    // e.g. GET <server url>/someUrl?key=value1
+                    $http({
+                        method: 'GET',
+                        url: '/https://content-discovery-app-rafa-bustamante.c9users.io/#/home',
+                        headers: {
+                            'Accept-Language': 'en'
+                        },
+                        params: {
+                            category1: "NowOn"
+                        }
+                    }).
+                    success(function (data, status, headers, config) {
+                        // this callback will be called asynchronously
+                        // when the response is available
+                        defer.resolve(data);
+                    }).
+                    error(function (data, status, headers, config) {
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                        defer.reject();
+                    });
+
+                    return defer.promise;
+                };
+            });
+        })(angular);
+
+
+
+        // ---SPECS-------------------------
+
+        describe('myApp', function () {
+            var scope,
+            controller;
+            beforeEach(function () {
+                module('myApp');
+            });
+
+            describe('MainController', function () {
+                beforeEach(inject(function ($rootScope, $controller) {
+                    scope = $rootScope.$new();
+                    controller = $controller('MainController', {
+                        '$scope': scope
+                    });
+                }));
+                it('sets the category', function () {
+                    expect(scope.name).toBe('Now On');
+                });
+
+                it('watches the category and updates the Content Display view', function () {
+                    expect(scope.counter).toBe(0);
+                    scope.name = 'My Channel';
+                    scope.$digest();
+                    expect(scope.counter).toBe(1);
+                });
+            });
+
+            describe('CtrlHttp', function () {
+
+                var $httpBackend,
+                    expectedUrl = '/https://content-discovery-app-rafa-bustamante.c9users.io/#/home?category1=NowOn',
+                    promise,
+                    successCallback,
+                    errorCallback,
+                    httpController;
+
+                beforeEach(inject(function ($rootScope, $controller, _$httpBackend_) {
+                    $httpBackend = _$httpBackend_;
+                    scope = $rootScope.$new();
+                    successCallback = jasmine.createSpy();
+                    errorCallback = jasmine.createSpy();
+                    httpController = $controller('CtrlHttp', {
+                        '$scope': scope
+                    });
+                }));
+
+                afterEach(function() {
+                    $httpBackend.verifyNoOutstandingExpectation();
+                    $httpBackend.verifyNoOutstandingRequest();
+                });
+
+                it('returns http requests successfully and resolves the promise', function () {
+                    var data = '{"translationKey":"translationValue"}';
+                    expect(httpController).toBeDefined();
+                    $httpBackend.expectGET(expectedUrl).respond(200, data);
+                    promise = scope.getHttp();
+                    promise.then(successCallback, errorCallback);
+
+                    $httpBackend.flush();
+
+                    expect(successCallback).toHaveBeenCalledWith(angular.fromJson(data));
+                    expect(errorCallback).not.toHaveBeenCalled();
+                });
+
+                it('returns http requests with an error and rejects the promise', function () {
+                    $httpBackend.expectGET(expectedUrl).respond(500, 'Oh no!!');
+                    promise = scope.getHttp();
+                    promise.then(successCallback, errorCallback);
+
+                    $httpBackend.flush();
+
+                    expect(successCallback).not.toHaveBeenCalled();
+                    expect(errorCallback).toHaveBeenCalled();
+                });
+            });
+            
+        });
+
+        // --- Runner -------------------------
+        (function () {
+            var jasmineEnv = jasmine.getEnv();
+            jasmineEnv.updateInterval = 1000;
+
+            var htmlReporter = new jasmine.HtmlReporter();
+
+            jasmineEnv.addReporter(htmlReporter);
+
+            jasmineEnv.specFilter = function (spec) {
+                return htmlReporter.specFilter(spec);
+            };
+
+            var currentWindowOnload = window.onload;
+
+            window.onload = function () {
+                if (currentWindowOnload) {
+                    currentWindowOnload();
+                }
+                execJasmine();
+            };
+
+            function execJasmine() {
+                jasmineEnv.execute();
+            }
+
+        })();
+        //]]> 
+
+        </script>
+    </body>
+</html>
+

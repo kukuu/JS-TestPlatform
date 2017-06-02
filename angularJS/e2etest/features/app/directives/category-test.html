@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/start/jquery-ui.css">
+  <style type="text/css">
+    b {
+        display: block;
+        margin: 15px 0 5px 0;
+    }
+    
+ 
+ </style>
+  <title>Content Display App - Angular Directive Test</title>
+</head>
+<body>
+  <div ng-app="jqButtonTest" ng-controller="jqButtonTestController">
+    <div>
+        <b>CDA Directive Tests for CTAs</b>
+        <div ng-repeat="i in ['HOME','LIVE','MOVIES','TV','DISCOVER']">
+            <jq-button style="padding-bottom:10px;display:inline;width:200px;" ng-class="inline-display" ng-disabled="buttonDisabled" jqb-click="test(i)" text="{{buttonTitle}} {{i}}"></jq-button>
+        </div>
+        <br/>
+    </div>
+</div>
+  
+<script type='text/javascript'>//<![CDATA[
+
+// creative the directives as re-usable components
+angular
+    .module('Components', [])
+    .directive('jqButton', function () {
+        return {
+            restrict: 'E',
+            replace: true,
+            template: '<button ng-click="jqbClick()"></button>',
+            scope: {
+                'jqbClick':   '&',
+                'ngDisabled': '=',
+                'text':       '@'
+            },
+            link: function (scope, element, attrs) {
+                element.button();
+
+                scope.$watch('text', function (value) {
+                    element.button('option', 'label', value);
+                });
+                
+                scope.$watch('ngDisabled', function (value) {
+                    element.attr('disabled', value);
+
+                    if (value) {
+                        element.button('disable');
+                    }
+                    else {
+                        element.button('enable');
+                    }
+                });
+            }
+        };
+    });
+
+// create my controller
+angular
+    .module('jqButtonTest', ['Components'])
+    .controller('jqButtonTestController', function ($scope, $http) {
+        $scope.buttonDisabled = false;
+        $scope.buttonTitle = 'test button';
+
+        $scope.test = function (i) {
+            alert('you clicked button ' + i);
+        }
+});
+
+//]]> 
+
+</script>
+
+</body>
+
+</html>
+
