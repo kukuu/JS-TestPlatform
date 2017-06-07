@@ -99,9 +99,9 @@ proves that your analysis is right.
 
 #### Step 5. Cover lateral damage.
 
-At this stage you are almost ready to start coding the fix, but you have to cover your ass before you change the code, 
-so you create or gather (if already created) all the unit tests for the code which is around where you will do 
-the changes so that you will be sure after completing the modification that you won’t have break anything else. 
+At this stage you are almost ready to start coding the fix, but you have to gather (if already created) all 
+the unit tests for the code which is around where you will do the changes so that you will be sure
+after completing the modification that you won’t have break anything else. 
 If you run this unit tests, they all should pass.
 
 #### Step 6. Fix the error.
