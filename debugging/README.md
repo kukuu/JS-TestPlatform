@@ -57,8 +57,9 @@ Reproduce the error. You never should say that an error has been fixed if you we
 Understand what the expected behavior should be. In complex applications could be hard to tell what should be 
 the expected behavior of an error, but that knowledge is basic to be able to fix the problem, so we will 
 have to talk with the product owner, check documentation… to find this information
-Validate the identification. Confirm with the responsible of the application that the error is actually
-an error and that the expected behavior is correct. The validation can also lead to situations where is 
+Validate the identification. Confirm with the responsible person for (possibly a PO) 
+the application that the error is actually an error and that the expected behavior is correct. 
+The validation can also lead to situations where is 
 not necessary or not worth it to fix the error.
 
 ####  Step 2. Find the error.
