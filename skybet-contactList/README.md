@@ -1,5 +1,5 @@
 
-# Unit Test suite for SKY Bet Contact List
+# Unit Test suite
 
 ## Project Structure
  |-app
@@ -11,6 +11,11 @@
         |-skybet.js
 
         |-skybet.spec.js
+        
+        |-exponential.js
+
+        |-exponential.spec.js
+        
 
     |-app.css
 
