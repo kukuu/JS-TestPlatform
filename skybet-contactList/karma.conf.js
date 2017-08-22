@@ -35,14 +35,14 @@ module.exports = function(config) {
     },
 
 
-    // test results reporter to use
+    // test results reporter to use for coverage
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['spec'],
 
 
     // web server port
-    port: 9876,
+    port: 9877,
 
 
     // enable / disable colors in the output (reporters and logs)
@@ -60,7 +60,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['Chrome']
 
 
     // Continuous Integration mode
