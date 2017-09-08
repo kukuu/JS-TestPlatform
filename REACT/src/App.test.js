@@ -6,7 +6,7 @@ import { mount, shallow } from 'enzyme';
 
 
 describe('<App/>', () => {
-	it('reders 1 <App/> component', () => {
+	it('renders 1 <App/> component', () => {
 		const component = shallow(<App name="app" />);
 		//console.log(component.props);
 		expect(component).toHaveLength(1);
@@ -30,6 +30,6 @@ describe('<App/>', () => {
 		button.simulate('click');
 		//console.log(component.state());
 		//expect(component.state().counter).toEqual(5);
-		expect(component.state().counter).toEqual(15
+		expect(component.state().counter).toEqual(5)
 	})
 });
