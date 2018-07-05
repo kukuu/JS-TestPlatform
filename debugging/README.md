@@ -76,7 +76,7 @@ are using and stepping through the code.
 
 ##### Removing code. 
 
-I discovered this method a couple of years ago when we were trying to fix a very challenging bug. We had an application which a few seconds after performing an action was causing the system to crash but only on some computers and not always, but only from time to time, when debugging, everything seemed to work as expected, and when the machine was crashing it happened with many different patterns, we were completely lost, and then it occurred to us the removing code approach.
+I discovered this method a couple of years ago (at M&S) when we were trying to fix a very challenging bug. We had an application which a few seconds after performing an action was causing the system to crash but only on some computers and not always, but only from time to time, when debugging, everything seemed to work as expected, and when the machine was crashing it happened with many different patterns, we were completely lost, and then it occurred to us the removing code approach.
 
 It worked more or less like this: We took out half of the code from the action causing the machine to crash, 
 and we executed it hundreds of times, and the application crashed, we did the same with the other half of the code 
