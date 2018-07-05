@@ -68,13 +68,15 @@ Once we have an error correctly identified, is time to go through the code to fi
 where the error is located, at this stage we are  not interested in understanding the big picture 
 for the error, we are just focused on finding it. A few techniques that may help to find an error are:
 
-Logging. It can be to the console, file… It should help you to trace the error in the code.
+##### Logging
+
+It can be to the console. It should help you to trace the error in the code.
 Debugging. Debugging in the most technical sense of the word, meaning turning on whatever the debugger you 
-are using and stepping through the code. Removing code. I discovered this method a year ago when we were 
-trying to fix a very challenging bug. We had an application which a few seconds after performing an action was
-causing the system to crash but only on some computers and not always but only from time to time, when debugging, 
-everything seemed to work as expected, and when the machine was crashing it happened with many different patterns, 
-we were completely lost, and then it occurred to us the removing code approach.
+are using and stepping through the code. 
+
+##### Removing code. 
+
+I discovered this method a couple of years ago when we were trying to fix a very challenging bug. We had an application which a few seconds after performing an action was causing the system to crash but only on some computers and not always, but only from time to time, when debugging, everything seemed to work as expected, and when the machine was crashing it happened with many different patterns, we were completely lost, and then it occurred to us the removing code approach.
 
 It worked more or less like this: We took out half of the code from the action causing the machine to crash, 
 and we executed it hundreds of times, and the application crashed, we did the same with the other half of the code 
